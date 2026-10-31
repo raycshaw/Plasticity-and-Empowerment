@@ -1,0 +1,70 @@
+"""Independent teacher-forced replay of stored trajectories, without KV caches."""
+from pathlib import Path
+import gc,json,hashlib
+import numpy as np
+import torch
+import pyarrow.parquet as pq
+from transformers import AutoTokenizer,AutoModelForCausalLM
+
+ROOT=Path(__file__).resolve().parents[2]
+OUT=Path(__file__).parent
+torch.set_num_threads(4)
+report=[]
+
+@torch.inference_mode()
+def score(model,prefix,tokens):
+    # Score every saved token from a single full sequence, not the runner's
+    # per-token cache updates. Compute Shannon entropy in float64 on the CPU.
+    ids=torch.tensor([prefix+tokens[:-1]],device=model.device)
+    logits=model(ids,use_cache=False,logits_to_keep=0).logits[0,len(prefix)-1:].cpu().double()
+    assert len(logits)==len(tokens)
+    logp=logits.log_softmax(-1)
+    return (-(logp.exp()*logp).sum(-1)/np.log(2)).tolist()
+
+for name,folder,mode,indices in [
+    ('old_1.7b','results/sampled_rlvr_50x20','native',[1,25]),
+    ('new_0.6b','runs/qwen06b_gsm8k200_20rollouts','nonthinking',[1,25,149])]:
+    p=ROOT/folder
+    config=json.loads((p/'config.json').read_text())
+    rows=pq.read_table(p/'rollouts.parquet').to_pylist()
+    for step,repo,revision in config['checkpoints']:
+        tok=AutoTokenizer.from_pretrained(repo,revision=revision,local_files_only=True)
+        model=AutoModelForCausalLM.from_pretrained(repo,revision=revision,local_files_only=True,
+                                                  dtype=torch.float16).to('mps').eval()
+        for index in indices:
+            row=next(r for r in rows if r['rlvr_step']==step and r['source_row']==index and r['rollout_index']==0)
+            kwargs={'enable_thinking':False} if mode=='nonthinking' else {}
+            def prompt(text):
+                return tok.apply_chat_template([{'role':'user','content':text}],tokenize=True,
+                            add_generation_prompt=True,return_dict=False,**kwargs)
+            full=prompt(row['question'])
+            a=row['a_token_ids'];b=row['b_token_ids']
+            ap=[full,prompt('')]
+            bp=[]
+            for span,inj in [(a,row['injection']),(a,''),([],row['injection'])]:
+                if mode=='nonthinking':
+                    suffix=tok.encode('<|im_end|>\n<|im_start|>user\n'+inj+
+                                      '<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n',add_special_tokens=False)
+                else:
+                    framing=tok.apply_chat_template([{'role':'user','content':row['question']},
+                        {'role':'assistant','content':''},{'role':'user','content':inj}],tokenize=True,
+                        add_generation_prompt=True,return_dict=False)
+                    assert framing[:len(full)]==full
+                    suffix=framing[len(full):]
+                bp.append(full+span+suffix)
+            ar=np.array([score(model,p,a) for p in ap]).T
+            br=np.array([score(model,p,b) for p in bp]).T
+            sa=np.array(row['a_entropies']);sb=np.array(row['b_entropies'])
+            measured={'input':float((ar[:,1]-ar[:,0]).mean()),
+                      'injection':float((br[:,1]-br[:,0]).mean()),
+                      'empowerment':float((br[:,2]-br[:,0]).mean())}
+            record=dict(run=name,step=step,id=row['id'],rollout_index=0,
+                        max_abs_entropy_error=float(max(abs(ar-sa).max(),abs(br-sb).max())),
+                        saved={m:row[m+'_bits_per_token'] for m in measured},replayed=measured,
+                        score_error={m:measured[m]-row[m+'_bits_per_token'] for m in measured},
+                        decoded_a=row['a_text'],decoded_b=row['b_text'])
+            report.append(record)
+            print(json.dumps(record),flush=True)
+            (OUT/'independent_replay.json').write_text(json.dumps(report,indent=2)+'\n')
+        del model
+        gc.collect();torch.mps.empty_cache()

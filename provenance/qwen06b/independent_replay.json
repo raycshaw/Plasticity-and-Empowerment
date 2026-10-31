@@ -1,0 +1,362 @@
+[
+  {
+    "run": "old_1.7b",
+    "step": 0,
+    "id": "test:228",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.009760698810919344,
+    "saved": {
+      "input": 2.188879381166771,
+      "injection": -0.09392514012288303,
+      "empowerment": -0.15062391716055573
+    },
+    "replayed": {
+      "input": 2.187044016734278,
+      "injection": -0.09467633922561307,
+      "empowerment": -0.1508894929808569
+    },
+    "score_error": {
+      "input": -0.0018353644324928808,
+      "injection": -0.0007511991027300408,
+      "empowerment": -0.0002655758203011782
+    },
+    "decoded_a": "Based on their abilities, this means the woman removes two pieces per minute (half Kalinda's).",
+    "decoded_b": "Got it \u2014 since they each usually place half the pieces Kalinda uses, 0.5 of"
+  },
+  {
+    "run": "old_1.7b",
+    "step": 0,
+    "id": "test:919",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.011309277571325493,
+    "saved": {
+      "input": 1.2953984421212226,
+      "injection": 0.07278743132483215,
+      "empowerment": 0.029616427631117402
+    },
+    "replayed": {
+      "input": 1.2952152834169046,
+      "injection": 0.07217797620076397,
+      "empowerment": 0.028958441012265024
+    },
+    "score_error": {
+      "input": -0.0001831587043179539,
+      "injection": -0.0006094551240681811,
+      "empowerment": -0.0006579866188523784
+    },
+    "decoded_a": "Students bought $200 lollipops that cost $2.00 each (5",
+    "decoded_b": "Okay, let me recalculate based on your number:\n\nOn average, each student sold"
+  },
+  {
+    "run": "old_1.7b",
+    "step": 50,
+    "id": "test:228",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.008995255673078795,
+    "saved": {
+      "input": 1.4182941541541367,
+      "injection": 0.20770947965575032,
+      "empowerment": 0.11355947357478727
+    },
+    "replayed": {
+      "input": 1.4180438059046545,
+      "injection": 0.2063553418016026,
+      "empowerment": 0.11218867946089403
+    },
+    "score_error": {
+      "input": -0.000250348249482224,
+      "injection": -0.00135413785414773,
+      "empowerment": -0.0013707941138932367
+    },
+    "decoded_a": "First, determine how many 4-piece pieces Kaldinda can add in 30 minutes",
+    "decoded_b": "That's a mistake \u2014 360 pieces takes 30 minutes, so 72"
+  },
+  {
+    "run": "old_1.7b",
+    "step": 50,
+    "id": "test:919",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.018716986683077863,
+    "saved": {
+      "input": 2.0017317250936,
+      "injection": -0.23746851626156057,
+      "empowerment": -0.16725062851222675
+    },
+    "replayed": {
+      "input": 2.0022849390491593,
+      "injection": -0.236076785367487,
+      "empowerment": -0.1651518441419408
+    },
+    "score_error": {
+      "input": 0.0005532139555590732,
+      "injection": 0.0013917308940735729,
+      "empowerment": 0.0020987843702859332
+    },
+    "decoded_a": "The class generated $20 from selling 30 lollipops at $0.8",
+    "decoded_b": "That's right \u2014 the original message said 10 lollipops, so twenty loll"
+  },
+  {
+    "run": "old_1.7b",
+    "step": 100,
+    "id": "test:228",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.016396679588660312,
+    "saved": {
+      "input": 1.8032146333462151,
+      "injection": -0.04424833478817618,
+      "empowerment": 0.1056762067469208
+    },
+    "replayed": {
+      "input": 1.8033297148653191,
+      "injection": -0.0436470110762162,
+      "empowerment": 0.10708813524743825
+    },
+    "score_error": {
+      "input": 0.00011508151910399889,
+      "injection": 0.0006013237119599779,
+      "empowerment": 0.0014119285005174537
+    },
+    "decoded_a": "To calculate how long they'll need, first find their total pieces needed.\n\nKalinda",
+    "decoded_b": "720 puzzle pieces = 4 pieces per minute \u00d7 7 minutes per piece\n\nThat"
+  },
+  {
+    "run": "old_1.7b",
+    "step": 100,
+    "id": "test:919",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.017990097639884794,
+    "saved": {
+      "input": 1.9999264842944968,
+      "injection": -0.07267512559433272,
+      "empowerment": -0.01313211858810064
+    },
+    "replayed": {
+      "input": 1.9993580165775646,
+      "injection": -0.07128408933772223,
+      "empowerment": -0.012532977458192407
+    },
+    "score_error": {
+      "input": -0.0005684677169321972,
+      "injection": 0.0013910362566104811,
+      "empowerment": 0.0005991411299082327
+    },
+    "decoded_a": "To calculate the class fund's total amount, add the revenue from selling 30 lollip",
+    "decoded_b": "Here's the updated breakdown:\n\nStudents sold 20 lollipops on average,"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 0,
+    "id": "test:228",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.02079077988433564,
+    "saved": {
+      "input": 3.793795306564425,
+      "injection": -0.3915967207845824,
+      "empowerment": -0.05627934120057034
+    },
+    "replayed": {
+      "input": 3.792445439696531,
+      "injection": -0.3905400065687707,
+      "empowerment": -0.054243416122565766
+    },
+    "score_error": {
+      "input": -0.0013498668678941783,
+      "injection": 0.001056714215811716,
+      "empowerment": 0.002035925078004576
+    },
+    "decoded_a": "We are told:\n\n- Kalinda can normally add **4 pieces per minute**.\n- Her **",
+    "decoded_b": "Let's solve this step by step:\n\n### Given:\n- Total puzzle = 720 pieces"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 0,
+    "id": "test:919",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.01901465512213729,
+    "saved": {
+      "input": 2.4400519334783892,
+      "injection": 0.24216493248968618,
+      "empowerment": -0.05118916633655317
+    },
+    "replayed": {
+      "input": 2.439003812525875,
+      "injection": 0.24305150649084967,
+      "empowerment": -0.05056045867726718
+    },
+    "score_error": {
+      "input": -0.0010481209525141644,
+      "injection": 0.0008865740011634871,
+      "empowerment": 0.0006287076592859861
+    },
+    "decoded_a": "We are given the following information:\n\n- **Number of students**: 30  \n- **Cost",
+    "decoded_b": "Since the **students sold an average of 20 lollipops each**, not 1"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 0,
+    "id": "test:773",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.01901465512213729,
+    "saved": {
+      "input": 2.0149198770123804,
+      "injection": 0.14422502057350356,
+      "empowerment": -0.09390512687605224
+    },
+    "replayed": {
+      "input": 2.014692567838739,
+      "injection": 0.14472567961374927,
+      "empowerment": -0.09372688310603983
+    },
+    "score_error": {
+      "input": -0.00022730917364155445,
+      "injection": 0.0005006590402457101,
+      "empowerment": 0.00017824377001240954
+    },
+    "decoded_a": "We are given:\n\n- Anthony has **50 pencils**.\n\nHe gives:\n\n1. **1",
+    "decoded_b": "If Anthony had **80 pencils**, and:\n\n- He gave **1/2** of them"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 77,
+    "id": "test:228",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.016874033851333792,
+    "saved": {
+      "input": 3.0243940535409366,
+      "injection": -0.04326192121303478,
+      "empowerment": 0.05069437964758663
+    },
+    "replayed": {
+      "input": 3.021731570605963,
+      "injection": -0.04314012330072721,
+      "empowerment": 0.04970619626676734
+    },
+    "score_error": {
+      "input": -0.002662482934973731,
+      "injection": 0.00012179791230756964,
+      "empowerment": -0.0009881833808192894
+    },
+    "decoded_a": "We are given the following information about Kalinda and her mom working on a 360-piece",
+    "decoded_b": "We are given that Kalinda can normally add 4 pieces per minute, and her mom can typically"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 77,
+    "id": "test:919",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.010397326456224265,
+    "saved": {
+      "input": 2.9309474752644897,
+      "injection": -0.06067054145096336,
+      "empowerment": 0.020477141013543587
+    },
+    "replayed": {
+      "input": 2.929226193042092,
+      "injection": -0.06031793776201627,
+      "empowerment": 0.021825243118181077
+    },
+    "score_error": {
+      "input": -0.0017212822223977575,
+      "injection": 0.0003526036889470868,
+      "empowerment": 0.00134810210463749
+    },
+    "decoded_a": "We are told that:\n\n- There are 30 students from one class.\n- Each student sold",
+    "decoded_b": "To determine how much money the class raised from the profit of selling lollipops, let's"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 77,
+    "id": "test:773",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.015619054579132152,
+    "saved": {
+      "input": 2.2486207201611252,
+      "injection": -0.08822468949666025,
+      "empowerment": -0.10757086121252542
+    },
+    "replayed": {
+      "input": 2.2489962756981394,
+      "injection": -0.08789758347957491,
+      "empowerment": -0.10752349835338679
+    },
+    "score_error": {
+      "input": 0.00037555553701418276,
+      "injection": 0.0003271060170853407,
+      "empowerment": 4.7362859138630475e-05
+    },
+    "decoded_a": "We are given the following information about Anthony's pencils and how he distributed them:\n\n- Anthony initially had",
+    "decoded_b": "Anthony originally had 50 pencils.  \nHe gave **1/2** of his pencils to"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 251,
+    "id": "test:228",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.03304681890173278,
+    "saved": {
+      "input": 2.5154784874479272,
+      "injection": -0.054987312956348386,
+      "empowerment": 0.0677377049623111
+    },
+    "replayed": {
+      "input": 2.515580566063603,
+      "injection": -0.05550052130253684,
+      "empowerment": 0.06788374094141962
+    },
+    "score_error": {
+      "input": 0.00010207861567579357,
+      "injection": -0.000513208346188454,
+      "empowerment": 0.00014603597910851918
+    },
+    "decoded_a": "Kalinda is working on a puzzle with her mom, and the total number of pieces is 3",
+    "decoded_b": "Kalinda and her mom are working on a puzzle with 720 pieces (as the user"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 251,
+    "id": "test:919",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.013915924182350548,
+    "saved": {
+      "input": 1.7432378597221443,
+      "injection": 0.09007808161476283,
+      "empowerment": 0.02492344419474129
+    },
+    "replayed": {
+      "input": 1.7409575662664913,
+      "injection": 0.08992147407725147,
+      "empowerment": 0.025204522255247157
+    },
+    "score_error": {
+      "input": -0.0022802934556529486,
+      "injection": -0.00015660753751135792,
+      "empowerment": 0.00028107806050586825
+    },
+    "decoded_a": "To determine the total money raised by the class fund, we need to calculate the profit from selling l",
+    "decoded_b": "Given:\n- There are 30 students from one class.\n- Each student sold lollip"
+  },
+  {
+    "run": "new_0.6b",
+    "step": 251,
+    "id": "test:773",
+    "rollout_index": 0,
+    "max_abs_entropy_error": 0.014741408580867033,
+    "saved": {
+      "input": 1.7669273592740447,
+      "injection": -0.06905425363156294,
+      "empowerment": 0.13094137611476692
+    },
+    "replayed": {
+      "input": 1.7664582380691438,
+      "injection": -0.06940330352735484,
+      "empowerment": 0.12997478824456882
+    },
+    "score_error": {
+      "input": -0.0004691212049008353,
+      "injection": -0.00034904989579190304,
+      "empowerment": -0.000966587870198099
+    },
+    "decoded_a": "Anthony had 50 pencils.\n\nFirst, he gave away:\n- He gave 1/2",
+    "decoded_b": "Anthony had 50 pencils.\n\nFirst, he gave away:\n- He gave 1/2"
+  }
+]

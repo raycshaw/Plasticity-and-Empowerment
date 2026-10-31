@@ -1,5 +1,7 @@
 # Qwen3-0.6B across additional GSM8K training
 
+Completed October 31, 2026: [results, figures, and interpretation](results/qwen06b_gsm8k200_20rollouts/README.md).
+
 This experiment uses the published Qwen3-0.6B model and two descendants from
 Cristian Patino's sequential GSM8K GRPO campaign. The selected public weights
 are pinned in `configs/qwen06b_gsm8k200.json`.
@@ -75,5 +77,7 @@ rollouts and after every question. Resume after a normal interruption with
 PID in `pipeline.lock` is no longer alive before removing the stale lock.
 Keep the source and configuration unchanged while a run is active.
 
-Generated run files are local and gitignored. Publishing completed artifacts
-to GitHub is a separate action; the earlier published results remain available.
+New execution files under `runs/` are local and gitignored. The completed run
+is published under `results/qwen06b_gsm8k200_20rollouts`.
+If all pinned model files are cached, use `HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1`
+when launching or resuming to avoid remote metadata lookups.

@@ -1,0 +1,22 @@
+{
+  "name": "qwen06b_gsm8k200",
+  "source": "data/gsm8k200/gsm8k200_injections.parquet",
+  "chat_mode": "qwen3_nonthinking",
+  "checkpoints": [
+    [0, "Qwen/Qwen3-0.6B", "c1899de289a04d12100db370d81485cdf75e47ca"],
+    [77, "cmpatino/qwen-grpo-r2", "628c96470d7289309a6fe9b1292b8039e7b66794"],
+    [251, "cmpatino/qwen-grpo-r5", "06c0dac913ec3ca17e3a6418c136be7bf8fcedb8"]
+  ],
+  "publisher_reported_gsm8k_accuracy": {"0": 0.4754, "77": null, "251": 0.7089},
+  "accuracy_protocol": "Publisher's full 1319 test questions, 10-shot greedy, non-thinking. Not measured by this entropy experiment. Intermediate score not unambiguously mapped in model card.",
+  "nominal_training_prompt_presentations": {"0": 0, "77": 1232, "251": 4016},
+  "training_exposure_note": "Inferred as cumulative optimizer steps times 16 prompts per step. Distinct IDs were not independently verified. r5 descends from r2 (77 steps), r4-s100 (100 more), then r5 (74 more).",
+  "source_url": "https://huggingface.co/cmpatino/qwen-grpo-r5/blob/06c0dac913ec3ca17e3a6418c136be7bf8fcedb8/README.md",
+  "limitations": [
+    "Public sequential GRPO stages, not a controlled sweep of unique GSM8K training-set sizes.",
+    "Learning rate, rollout group size, and sampling temperature change across stages.",
+    "Publisher selected the r5 initialization using 200 test questions; this is not an untouched test benchmark.",
+    "The original 50 questions were length-screened; the added 150 are randomly sampled without length screening.",
+    "Original question-only prompts and 20+20 token entropy protocol are retained, so published accuracy is selection context, not this run's accuracy."
+  ]
+}

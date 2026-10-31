@@ -1,0 +1,217 @@
+{
+  "method": {
+    "method": "50,000 question bootstrap percentile 95% CIs; two-sided paired t-tests across question means; Holm correction over all nine primary tests",
+    "limitations": "One training lineage; see dataset selection cohorts; fixed-length scores conditional on completion. CIs are pointwise, not simultaneous.",
+    "missing_pairs": "Explicit per-metric paired exclusion with omitted IDs reported",
+    "bootstrap_seed": 20261030,
+    "bootstrap_replicates": 50000,
+    "weighting": "Equal weight per question after averaging available fixed-horizon rollouts within question/checkpoint"
+  },
+  "means": [
+    {
+      "metric": "input",
+      "rlvr_step": 0,
+      "n_questions": 200,
+      "mean": 2.401237322869017,
+      "ci95_low": 2.3510967070369144,
+      "ci95_high": 2.4510691372578655
+    },
+    {
+      "metric": "input",
+      "rlvr_step": 77,
+      "n_questions": 200,
+      "mean": 2.547982260960024,
+      "ci95_low": 2.502257302997199,
+      "ci95_high": 2.593080795148722
+    },
+    {
+      "metric": "input",
+      "rlvr_step": 251,
+      "n_questions": 200,
+      "mean": 2.318810992327101,
+      "ci95_low": 2.2533073454856196,
+      "ci95_high": 2.385491908963768
+    },
+    {
+      "metric": "injection",
+      "rlvr_step": 0,
+      "n_questions": 200,
+      "mean": 0.034318348975230235,
+      "ci95_low": 0.023373690437146936,
+      "ci95_high": 0.04584505656418709
+    },
+    {
+      "metric": "injection",
+      "rlvr_step": 77,
+      "n_questions": 200,
+      "mean": 0.012942405949909362,
+      "ci95_low": 0.004585065515103537,
+      "ci95_high": 0.02107065504063304
+    },
+    {
+      "metric": "injection",
+      "rlvr_step": 251,
+      "n_questions": 200,
+      "mean": -0.013980216081327932,
+      "ci95_low": -0.020441605003581245,
+      "ci95_high": -0.007452463139487963
+    },
+    {
+      "metric": "empowerment",
+      "rlvr_step": 0,
+      "n_questions": 200,
+      "mean": 0.051696349034130853,
+      "ci95_low": 0.04307374886487459,
+      "ci95_high": 0.060513310770961594
+    },
+    {
+      "metric": "empowerment",
+      "rlvr_step": 77,
+      "n_questions": 200,
+      "mean": -0.0027290375357524772,
+      "ci95_low": -0.009602015813946208,
+      "ci95_high": 0.00431144622883139
+    },
+    {
+      "metric": "empowerment",
+      "rlvr_step": 251,
+      "n_questions": 200,
+      "mean": -0.003404792936930933,
+      "ci95_low": -0.010667799438559382,
+      "ci95_high": 0.003915509507729627
+    }
+  ],
+  "comparisons": [
+    {
+      "metric": "input",
+      "step_from": 0,
+      "step_to": 77,
+      "n_pairs": 200,
+      "mean_difference": 0.1467449380910071,
+      "ci95_low": 0.09812791921489256,
+      "ci95_high": 0.19489674497014428,
+      "t_statistic": 5.924469376194762,
+      "df": 199,
+      "p_raw": 1.3585851853899735e-08,
+      "p_holm": 6.792925926949867e-08,
+      "significant_005": true
+    },
+    {
+      "metric": "input",
+      "step_from": 0,
+      "step_to": 251,
+      "n_pairs": 200,
+      "mean_difference": -0.08242633054191595,
+      "ci95_low": -0.1490650408643424,
+      "ci95_high": -0.014437878395074563,
+      "t_statistic": -2.39182300975577,
+      "df": 199,
+      "p_raw": 0.01769586945046238,
+      "p_holm": 0.03539173890092476,
+      "significant_005": true
+    },
+    {
+      "metric": "input",
+      "step_from": 77,
+      "step_to": 251,
+      "n_pairs": 200,
+      "mean_difference": -0.22917126863292303,
+      "ci95_low": -0.29266180618251697,
+      "ci95_high": -0.16482120691330507,
+      "t_statistic": -6.983316007912508,
+      "df": 199,
+      "p_raw": 4.218162626488944e-11,
+      "p_holm": 2.5308975758933665e-10,
+      "significant_005": true
+    },
+    {
+      "metric": "injection",
+      "step_from": 0,
+      "step_to": 77,
+      "n_pairs": 200,
+      "mean_difference": -0.021375943025320875,
+      "ci95_low": -0.032880429517180336,
+      "ci95_high": -0.010252603325438708,
+      "t_statistic": -3.6794912532921535,
+      "df": 199,
+      "p_raw": 0.0003008162508585338,
+      "p_holm": 0.0009024487525756014,
+      "significant_005": true
+    },
+    {
+      "metric": "injection",
+      "step_from": 0,
+      "step_to": 251,
+      "n_pairs": 200,
+      "mean_difference": -0.04829856505655817,
+      "ci95_low": -0.06087951892427599,
+      "ci95_high": -0.03603962509345936,
+      "t_statistic": -7.55402945201029,
+      "df": 199,
+      "p_raw": 1.4998139326184307e-12,
+      "p_holm": 1.0498697528329015e-11,
+      "significant_005": true
+    },
+    {
+      "metric": "injection",
+      "step_from": 77,
+      "step_to": 251,
+      "n_pairs": 200,
+      "mean_difference": -0.026922622031237298,
+      "ci95_low": -0.03708156750011601,
+      "ci95_high": -0.016544774043617882,
+      "t_statistic": -5.108619923590454,
+      "df": 199,
+      "p_raw": 7.578726370180913e-07,
+      "p_holm": 3.031490548072365e-06,
+      "significant_005": true
+    },
+    {
+      "metric": "empowerment",
+      "step_from": 0,
+      "step_to": 77,
+      "n_pairs": 200,
+      "mean_difference": -0.05442538656988333,
+      "ci95_low": -0.06488715623847578,
+      "ci95_high": -0.04400486456766074,
+      "t_statistic": -10.18581818285224,
+      "df": 199,
+      "p_raw": 7.052524235564398e-20,
+      "p_holm": 6.347271812007958e-19,
+      "significant_005": true
+    },
+    {
+      "metric": "empowerment",
+      "step_from": 0,
+      "step_to": 251,
+      "n_pairs": 200,
+      "mean_difference": -0.05510114197106178,
+      "ci95_low": -0.06576318388919318,
+      "ci95_high": -0.044585878602829844,
+      "t_statistic": -10.180884588117106,
+      "df": 199,
+      "p_raw": 7.291608354463505e-20,
+      "p_holm": 6.347271812007958e-19,
+      "significant_005": true
+    },
+    {
+      "metric": "empowerment",
+      "step_from": 77,
+      "step_to": 251,
+      "n_pairs": 200,
+      "mean_difference": -0.000675755401178455,
+      "ci95_low": -0.009918354626169036,
+      "ci95_high": 0.008610123717174975,
+      "t_statistic": -0.14254512368030883,
+      "df": 199,
+      "p_raw": 0.8867936594312725,
+      "p_holm": 0.8867936594312725,
+      "significant_005": false
+    }
+  ],
+  "omitted_question_ids_by_metric": {
+    "input": [],
+    "injection": [],
+    "empowerment": []
+  }
+}

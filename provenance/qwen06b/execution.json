@@ -1,0 +1,17 @@
+{
+  "initial_started_at_utc": "2026-10-30T23:48:27.699465+00:00",
+  "interrupted_at_utc": "2026-10-31T02:25:36.976619+00:00",
+  "interruption": "DNS failure during Hugging Face tokenizer metadata lookup when moving to checkpoint 77.",
+  "saved_rollouts_at_interruption": 4000,
+  "resumed_at_utc": "2026-10-31T04:49:27.081932+00:00",
+  "resume_environment": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1"
+  },
+  "resume_checks": "Validated all 4000 saved rows, runner and input hashes, and cached tokenizer/model availability before resuming.",
+  "completed_at_utc": "2026-10-31T10:31:52.574978+00:00",
+  "saved_rollouts": 12000,
+  "question_checkpoint_summaries": 600,
+  "source_and_settings_changed_on_resume": false,
+  "figure_update": "After completion, panel titles were changed to Input to Output A, Injection to Output B, and Output A to Output B. Numerical results unchanged."
+}

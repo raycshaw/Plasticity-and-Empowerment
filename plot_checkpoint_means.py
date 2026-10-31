@@ -14,9 +14,9 @@ steps = sorted({r['rlvr_step'] for r in intervals})
 comparisons = pq.read_table(root / 'checkpoint_comparisons.parquet').to_pylist()
 question_counts = {r['n_questions'] for r in intervals}
 n_questions = str(next(iter(question_counts))) if len(question_counts) == 1 else f'{min(question_counts)}-{max(question_counts)} paired'
-metrics = [('input_mean', 'Prompt ablation (Output A)', '#2563eb'),
-           ('injection_mean', 'Correction ablation (Output B)', '#d97706'),
-           ('empowerment_mean', 'Earlier-output ablation (Output B)', '#0d9488')]
+metrics = [('input_mean', 'Input to Output A', '#2563eb'),
+           ('injection_mean', 'Injection to Output B', '#d97706'),
+           ('empowerment_mean', 'Output A to Output B', '#0d9488')]
 plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 11,
                      'axes.spines.top': False, 'axes.spines.right': False})
 fig, axes = plt.subplots(1, 3, figsize=(13, 6))

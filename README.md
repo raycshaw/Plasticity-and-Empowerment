@@ -1,15 +1,43 @@
 # Plasticity and Empowerment: context-ablation experiments
 
-New experiment setup: [Qwen3-0.6B at three GSM8K training stages on 200 questions](QWEN06B_EXPERIMENT.md).
-The results below describe the completed earlier 1.7B experiment.
-
 This repository studies how removing a question, a correction, or earlier output
-changes a language model's next-token entropy. The current experiment compares
-three checkpoints of a GSM8K GRPO training run. These scores measure **entropy
+changes a language model's next-token entropy. The experiments compare
+three checkpoints within each of two GSM8K GRPO training lineages. These scores measure **entropy
 sensitivity to context ablation**. They do not establish plasticity, formal
 directed information, correction-following accuracy, or empowerment.
 
-## Latest results: October 30, 2026
+## Latest results: October 31, 2026, Qwen3-0.6B
+
+The completed **200-question x 20-rollout x 3-checkpoint** experiment contains
+12,000 raw rollouts and 600 question/checkpoint summaries. Means below are in
+bits/token; brackets are pointwise 95% question-bootstrap confidence intervals.
+
+| Measurement | Step 0 | Step 77 | Step 251 |
+|---|---:|---:|---:|
+| Input to Output A | 2.4012 [2.3511, 2.4511] | 2.5480 [2.5023, 2.5931] | 2.3188 [2.2533, 2.3855] |
+| Injection to Output B | 0.0343 [0.0234, 0.0458] | 0.0129 [0.0046, 0.0211] | -0.0140 [-0.0204, -0.0075] |
+| Output A to Output B | 0.0517 [0.0431, 0.0605] | -0.0027 [-0.0096, 0.0043] | -0.0034 [-0.0107, 0.0039] |
+
+![Qwen3-0.6B checkpoint means and confidence intervals](results/qwen06b_gsm8k200_20rollouts/checkpoint_means.png)
+
+**Injection to Output B decreases at every stage**, consistent with the direction
+in the earlier experiment. This supports a reduced-plasticity hypothesis through
+an entropy proxy; correction-following behavior was not measured.
+
+**Output A to Output B decreases early and then shows no detectable further
+change.** Its final confidence interval includes zero. The earlier experiment's
+increase was not significant after correction, so these results do not establish
+a general reversal of empowerment. Differences between models, training, chat
+framing, and question selection limit the comparison.
+
+Read the [full results and explanation](results/qwen06b_gsm8k200_20rollouts/README.md)
+for all nine comparisons, the original-50-question sensitivity check, completion
+rates, audit findings, and commands to reproduce the analysis. The [raw data and
+figures](results/qwen06b_gsm8k200_20rollouts), [200 questions and injections](data/gsm8k200),
+[model setup](QWEN06B_EXPERIMENT.md), and [source snapshots and audit](provenance/qwen06b/README.md)
+are included in the repository.
+
+## Previous results: October 30, 2026, 1.7B
 
 The completed run contains **50 screened GSM8K test questions × 20 sampled
 rollouts × 3 checkpoints = 3,000 rollouts**. Each rollout attempts 20 tokens of

@@ -1,0 +1,33 @@
+{
+  "audited_at_utc": "2026-10-31T17:04:22.961170+00:00",
+  "raw_rollouts_validated": {
+    "previous_1_7b": 3000,
+    "qwen_0_6b": 12000
+  },
+  "checks": {
+    "complete_unique_rollout_grids": true,
+    "dataset_fields_and_checkpoint_revisions": true,
+    "entropy_sign_and_baseline_columns": true,
+    "question_means_recomputed": true,
+    "bootstrap_intervals_recomputed_exactly": true,
+    "paired_tests_and_holm_recomputed_exactly": true,
+    "plotted_parquet_matches_statistics": true,
+    "unit_tests_passed": 14
+  },
+  "independent_model_replay": {
+    "trajectories": 15,
+    "checkpoint_count": 6,
+    "method": "Teacher-force saved tokens using full-sequence forwards, no KV cache, explicit continuation framing, float64 CPU entropy from float16 model logits.",
+    "max_empowerment_score_absolute_discrepancy": 0.0020987843702859332,
+    "limitations": "Spot checks only; replay is not bitwise identical and does not certify all historical inference."
+  },
+  "interpretation_corrections": [
+    "Final Qwen mean -0.0034048 has 95% CI [-0.0106678, 0.0039155], so evidence does not establish a negative final score.",
+    "On the identical original 50 questions/injections, Qwen decreases from 0.0158687 to -0.0064233; adjusted endpoint p=0.1123257.",
+    "The previous 1.7B increase has adjusted endpoint p=0.0541447.",
+    "Full 200-question Qwen decrease remains significant and survives source-issue exclusion.",
+    "Different model families, training procedures, generated trajectories, chat framing, and cohort composition prevent a controlled model-size or training-dose attribution.",
+    "Historical 1.7B generating-runner hash differs from the preserved source snapshot; exact historical code identity remains unresolved.",
+    "Entropy sensitivity to removing A is not formal empowerment or channel capacity."
+  ]
+}

@@ -1,6 +1,20 @@
 # Findings and evidence
 
-## Completed sampled checkpoint run
+## Qwen3-0.6B: completed October 31, 2026
+
+The new 12,000-rollout experiment is published with its [full explanation,
+confidence intervals, adjusted tests, and robustness checks](results/qwen06b_gsm8k200_20rollouts/README.md).
+Injection to Output B declines at every stage, as in the previous experiment.
+Output A to Output B declines early and then shows no detectable later change;
+its final confidence interval includes zero. This supports a decrease in the
+measured correction-entropy proxy, not a demonstrated behavioral loss of
+plasticity or a general reversal of formal empowerment.
+
+The [audit record](provenance/qwen06b/README.md) distinguishes exact saved-data
+verification from limited model replays and the older run's unresolved source
+identity. The previous results below remain separate.
+
+## Previous 1.7B sampled checkpoint run
 
 The October 30, 2026 run contains all 3,000 planned rollouts and 150
 question/checkpoint summaries. See [methods](METHODS.md) for the estimand and

@@ -1,0 +1,28 @@
+{
+  "old": {
+    "raw_rows": 3000,
+    "per_question_endpoint_means": {
+      "0": 0.04172132762863242,
+      "50": 0.05807519168899352,
+      "100": 0.07526127829190804
+    },
+    "endpoint_p_raw": 0.013536181384401874,
+    "delta": 0.03353995066327562,
+    "negative_question_deltas": 18,
+    "positive_question_deltas": 32,
+    "n_questions": 50
+  },
+  "new": {
+    "raw_rows": 12000,
+    "per_question_endpoint_means": {
+      "0": 0.051696349034130853,
+      "77": -0.0027290375357524764,
+      "251": -0.0034047929369309315
+    },
+    "endpoint_p_raw": 7.291608354463505e-20,
+    "delta": -0.05510114197106178,
+    "negative_question_deltas": 154,
+    "positive_question_deltas": 46,
+    "n_questions": 200
+  }
+}

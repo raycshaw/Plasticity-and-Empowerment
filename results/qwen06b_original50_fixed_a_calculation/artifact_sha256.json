@@ -1,0 +1,13 @@
+{
+  "fixed_a_opening_trends.png": "33ee32179d29ea7b75ceeb9f513740255223dda43bb9cc47e2c74d4f7757ab39",
+  "checkpoint_comparisons.parquet": "2a42284a33220d84e70287b7f61caccab334a3d38760010843a4ab4f8a244222",
+  "checkpoint_statistics.json": "132c56debc94adc95d734de8751a8c61ba6630d8fec8bd76cbafd7d5f732ef8a",
+  "config.json": "1c64fd35d7e174ea7e2c1917ce8df79484ad41a74f05fa2365f3398fa3d03ea9",
+  "fixed_a_opening_trends.svg": "aaa258749f16076b3aec2a446a9474950c200941d081e625c92adcb45975ce32",
+  "checkpoint_mean_intervals.parquet": "bd971ccc01dec8028e495b7823b06b1e063734822bb230c8fbac0d3b18b90d60",
+  "README.md": "59d731154a3056e0b1949b3159ede419aabd17721819811bccf57e6dcc8ba069",
+  "rollouts.parquet": "88dd4654757364704030fee562546a924326fe79b7523f8bab94faeef84a6fd1",
+  "sensitivity_checks.json": "5edc75b53b8e02e86e5bc26265362c340863319f80cfa40293db48aff5e87d77",
+  "plot_results.py": "22904797afa29679e4cb3b614bed75263bb4b65af6af3707b276faa9fb81b987",
+  "question_means.parquet": "8f096c4799098a926ce8876c60bdf627d738970b30b10530a9530a53e9ca3900"
+}

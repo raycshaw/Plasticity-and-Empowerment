@@ -46,8 +46,10 @@ def continuation_prefix(tokenizer, prompt, injection, tokens, chat_mode='native'
 
 
 @torch.inference_mode()
-def sample_span(model, prefixes, eos, generator, cached=True):
+def sample_span(model, prefixes, eos, generator, cached=True, forced_tokens=None):
     """Only prefix 0 generates. Each alternative has its own independent cache."""
+    if forced_tokens is not None and (len(forced_tokens) != HORIZON or any(t in eos for t in forced_tokens)):
+        raise ValueError('Reference A must contain exactly 20 non-EOS tokens')
     if max(map(len, prefixes)) + HORIZON > model.config.max_position_embeddings:
         raise ValueError('Context length exceeded')
     tokens, entropies, eos_probs, token_log_probs = [], [], [], []
@@ -70,7 +72,8 @@ def sample_span(model, prefixes, eos, generator, cached=True):
         entropy_values = [-(prob * p).sum() / math.log(2) for prob, p in zip(probabilities, distributions)]
         eos_values = [prob[eos_indices].sum() for prob in probabilities]
         # Temperature 1, no filtering, no EOS masking. CPU RNG is local to this rollout.
-        token = int(torch.multinomial(probabilities[0].cpu(), 1, generator=generator))
+        token = (forced_tokens[position] if forced_tokens is not None else
+                 int(torch.multinomial(probabilities[0].cpu(), 1, generator=generator)))
         # Transfer scalar diagnostics together, avoiding a device sync per scalar.
         diagnostics = torch.stack(entropy_values + eos_values +
                                   [p[token] / math.log(2) for p in distributions]).cpu().tolist()
@@ -95,20 +98,21 @@ def measure(entropies, baseline, complete):
                 bits_per_token=total / HORIZON if complete else None)
 
 
-def rollout(model, tokenizer, prompt, injection, seed, cached=True, chat_mode='native'):
+def rollout(model, tokenizer, prompt, injection, seed, cached=True, chat_mode='native',
+            fixed_a=None, b_opening_ids=None):
     generator = torch.Generator(device='cpu').manual_seed(seed)
     eos = model.generation_config.eos_token_id
     eos = tokenizer.eos_token_id if eos is None else eos
     eos = {eos} if isinstance(eos, int) else set(eos or [])
     full = chat(tokenizer, prompt, chat_mode=chat_mode)
-    a = sample_span(model, [full, chat(tokenizer, '', chat_mode=chat_mode)], eos, generator, cached)
+    a = sample_span(model, [full, chat(tokenizer, '', chat_mode=chat_mode)], eos, generator, cached, forced_tokens=fixed_a)
     a_complete = a['content_token_count'] == HORIZON
     result = dict(seed=seed, a=a, a_complete=a_complete, b=None, b_complete=False,
                   input=measure(a['entropies'], 1, a_complete))
     if a_complete:
         prefixes = []
         for span, message in ((a['token_ids'], injection), (a['token_ids'], ''), ([], injection)):
-            prefixes.append(continuation_prefix(tokenizer, prompt, message, span, chat_mode))
+            prefixes.append(continuation_prefix(tokenizer, prompt, message, span, chat_mode) + list(b_opening_ids or []))
         b = sample_span(model, prefixes, eos, generator, cached)
         result.update(b=b, b_complete=b['content_token_count'] == HORIZON)
     b_entropies = result['b']['entropies'] if result['b'] else []
@@ -173,6 +177,30 @@ def save_tables(rows, directory, metadata, expected):
         temporary.replace(directory / f'{name}.parquet')
 
 
+
+def load_reference_a(path, questions, count, step):
+    """Select existing A spans by exact case and trial identity, never resample."""
+    wanted = {q['id']: q for q in questions}
+    selected = {}
+    for row in pq.read_table(path).to_pylist():
+        key = (row['id'], row['rollout_index'])
+        if row['rlvr_step'] != step or row['id'] not in wanted or not 0 <= row['rollout_index'] < count:
+            continue
+        if key in selected:
+            raise ValueError('Duplicate reference trajectory')
+        q = wanted[row['id']]
+        if any(row[k] != q[k] for k in ('question', 'injection')):
+            raise ValueError('Reference question or correction differs')
+        ids = row['a_token_ids']
+        if (not row['a_complete'] or row['a_ended_at_eos'] or len(ids) != HORIZON
+                or any(not isinstance(t, int) or t < 0 for t in ids)):
+            raise ValueError('Reference A must be a completed 20-token span')
+        selected[key] = row
+    if len(selected) != len(questions) * count:
+        raise ValueError('Missing reference A spans; no silent substitution or resampling')
+    return selected
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--experiment-config', type=Path, help='Pinned checkpoint manifest; default is the historical experiment')
@@ -181,6 +209,9 @@ def main():
     parser.add_argument('--rollouts', type=int, default=20)
     parser.add_argument('--limit', type=int, default=50)
     parser.add_argument('--seed', type=int, default=20261030)
+    parser.add_argument('--b-opening', default='', help='Supplied assistant opening; excluded from B scores')
+    parser.add_argument('--reference-rollouts', type=Path, help='Saved rollouts supplying identical A at every checkpoint')
+    parser.add_argument('--reference-step', type=int, default=0)
     parser.add_argument('--resume', action='store_true')
     args = parser.parse_args()
     specification = json.loads(args.experiment_config.read_text()) if args.experiment_config else None
@@ -206,9 +237,13 @@ def main():
         parser.error('Dataset IDs must be unique')
     if any(r.get('injection_after_tokens') != HORIZON for r in questions):
         parser.error('Dataset must specify injection_after_tokens=20 for every row')
+    reference = load_reference_a(args.reference_rollouts, questions, args.rollouts, args.reference_step) if args.reference_rollouts else None
     config = dict(source_sha256=hashlib.sha256(args.input.read_bytes()).hexdigest(),
                   script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   config_module_sha256=hashlib.sha256(Path(__file__).with_name('experiment_config.py').read_bytes()).hexdigest(),
+                  b_opening=args.b_opening, reference_step=args.reference_step if reference else None,
+                  reference_sha256=hashlib.sha256(args.reference_rollouts.read_bytes()).hexdigest() if reference else None,
+                  a_mode='teacher_forced_reference' if reference else 'sampled',
                   horizon=HORIZON, python=platform.python_version(),
                   packages={name: version(name) for name in ('torch', 'transformers', 'pyarrow')},
                   checkpoints=checkpoints, rollouts=args.rollouts, questions=len(questions), seed=args.seed,
@@ -233,11 +268,20 @@ def main():
     rows = pq.read_table(raw_path).to_pylist() if raw_path.exists() else []
     done = {(r['rlvr_step'], r['source_row'], r['rollout_index']) for r in rows}
     torch.set_num_threads(4)
+    if reference:
+        original = json.loads(pq.read_table(args.reference_rollouts).schema.metadata[b'experiment_config'])
+        if original['checkpoints'] != checkpoints or original.get('chat_mode', 'native') != chat_mode:
+            raise ValueError('Reference checkpoint/tokenizer configuration differs from this experiment')
     tokenizer = AutoTokenizer.from_pretrained(checkpoints[0][1], revision=checkpoints[0][2])
+    opening_ids = tokenizer.encode(args.b_opening, add_special_tokens=False) if args.b_opening else []
+    if args.b_opening and not opening_ids:
+        parser.error('Opening must tokenize to nonempty content')
     for step, repo, revision in checkpoints:
         if all((step, i, j) in done for i in range(len(questions)) for j in range(args.rollouts)):
             continue
         candidate = AutoTokenizer.from_pretrained(repo, revision=revision)
+        if candidate.encode(args.b_opening, add_special_tokens=False) != opening_ids and args.b_opening:
+            raise ValueError('Checkpoint opening token IDs differ')
         if candidate.get_vocab() != tokenizer.get_vocab():
             raise ValueError('Checkpoint tokenizer vocabulary mismatch')
         if chat_mode == 'native' and candidate.chat_template != tokenizer.chat_template:
@@ -251,6 +295,11 @@ def main():
                     raise ValueError('Checkpoint prompt tokens differ')
         model = AutoModelForCausalLM.from_pretrained(repo, revision=revision,
                     dtype=torch.float16 if config['device'] == 'mps' else torch.float32).to(config['device']).eval()
+        ending_ids = model.generation_config.eos_token_id
+        ending_ids = tokenizer.eos_token_id if ending_ids is None else ending_ids
+        ending_ids = {ending_ids} if isinstance(ending_ids, int) else set(ending_ids or [])
+        if any(t in ending_ids for t in opening_ids):
+            raise ValueError('Opening must not contain EOS tokens')
         for i, question in enumerate(questions):
             for j in range(args.rollouts):
                 if (step, i, j) in done:
@@ -258,8 +307,12 @@ def main():
                 seed = args.seed + step * 10000000 + i * 10000 + j
                 start = time.monotonic()
                 result = flatten(rollout(model, tokenizer, question['question'], question['injection'], seed,
-                                         chat_mode=chat_mode), tokenizer)
-                rows.append({**question, **result, 'source_row': i, 'rollout_index': j, 'rlvr_step': step,
+                                         chat_mode=chat_mode,
+                                         fixed_a=reference[(question['id'], j)]['a_token_ids'] if reference else None,
+                                         b_opening_ids=opening_ids), tokenizer)
+                rows.append({**question, **result, 'b_opening_text': args.b_opening,
+                             'b_opening_token_ids': opening_ids,
+                             'reference_a_seed': reference[(question['id'], j)]['seed'] if reference else None, 'source_row': i, 'rollout_index': j, 'rlvr_step': step,
                              'model_repo': repo, 'model_revision': revision, 'dtype': str(model.dtype),
                              'elapsed_seconds': time.monotonic()-start})
                 done.add((step, i, j))

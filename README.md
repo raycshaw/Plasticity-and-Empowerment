@@ -1,22 +1,50 @@
 # Plasticity and Empowerment: context-ablation experiments
 
-## Daytona Code For Ben
+Updated November 10, 2026 · Research by Ray Shaw and Ben Calvert
 
-The [Daytona Code For Ben setup guide](daytona_for_ben/README.md) contains the
-nine-sandbox runner for the corrected whole-A experiment: remove **all A1–125**
-in the empowerment baseline and score **B75–125**. Includes exact launch commands,
-a no-compute plan check, and the detailed protocol. No added system prompt.
+We study whether reinforcement learning with verifiable rewards changes how
+language models respond to corrections and rely on their earlier output.
+Our latest experiments compare Qwen and OLMo checkpoints using both entropy
+differences and Jensen–Shannon divergence (JSD).
 
-This repository studies how a language model's next-token entropy changes when a
+**Current takeaway:** results depend on the model, response window, and metric.
+We have not established a universal decrease in behavioral plasticity or increase
+in empowerment. Distribution sensitivity and successful correction-following
+must be measured separately.
+
+We measure how a language model's next-token probabilities and entropy change when a
 piece of context is removed: the question, a mid-response correction, or the
 model's own earlier output. We compare checkpoints from GSM8K GRPO training runs
 to see how these sensitivities change with additional RL training.
 
 > **What the numbers mean.** "Plasticity" (sensitivity to a correction) and
 > "empowerment" (sensitivity to earlier output) are working labels for
-> **entropy sensitivity to context ablation**, in bits/token. They are not formal
+> **context sensitivity**, measured with signed entropy differences and JSD. They are not formal
 > directed information, channel capacity, or correction-following accuracy.
 > [docs/METHODS.md](docs/METHODS.md) defines every context and score.
+
+## Latest findings
+
+| Study | Evidence | Takeaway |
+|---|---|---|
+| Corrected whole-A Qwen run | 1,500 attempts; remove all A, score B75–125 | Both entropy-proxy means decrease; length-based exclusions differ by checkpoint. |
+| OLMo with fresh A | 400 responses across four checkpoints | Correction entropy sensitivity fluctuates; A-related entropy sensitivity decreases in point estimates. |
+| OLMo with fixed A | 993/1,000 saved; 960 matched responses analyzed | Holding A fixed controls source text; B still differs across checkpoints. |
+| JSD versus entropy | Same 960 saved responses rescored | Endpoint directions differ by metric; all four endpoint-change intervals include zero. |
+| Preliminary correction screen | 920 responses after source-issue exclusions | Seven confirmed old-value uses are a lower bound, not an exhaustive failure rate. |
+
+![JSD versus original entropy measurements](results/olmo2_fixed_a_jsd_20261109/analysis/jsd_vs_entropy.png)
+
+[Full November 10 update](docs/updates/2026-11-10.md) ·
+[JSD results and reproducible analysis](results/olmo2_fixed_a_jsd_20261109/README.md) ·
+[OLMo results and preliminary grading](results/olmo2_1b_a100_full_b_50q_20261105/README.md) ·
+[Ben's corrected whole-A results](results/qwen06b_original50_free_a125_whole_a_b75_125/README.md)
+
+JSD captures probability changes even when entropy stays the same. Larger JSD
+does not necessarily mean successful adaptation: a model can change its wording
+or acknowledge a correction while calculating incorrectly. Our next proposed
+step is to validate both metrics against correction adoption and answer accuracy,
+with unchanged-fact and irrelevant-message controls.
 
 ## How an experiment works
 
@@ -31,6 +59,10 @@ to see how these sensitivities change with additional RL training.
 | Input to Output A | the question | prompt sensitivity |
 | Injection to Output B | the correction | "plasticity" |
 | Output A to Output B | earlier output A | "empowerment" |
+
+The JSD comparison uses the same two contexts and exact generated B history,
+but compares their full next-token probability distributions. See
+[measurement details](docs/METHODS.md#jsd-complement-november-2026).
 
 ## Repository layout
 
@@ -84,10 +116,15 @@ to change a runner, add a new file and record new provenance for any new run.
 
 ## Experiment index
 
-Listed newest first. All entropy figures are in bits/token.
+Listed newest first. Entropy differences are in bits/token; JSD is mean per-token divergence in bits.
 
 | Date | Experiment | Model / checkpoints | Runner | Results | Write-up |
 |---|---|---|---|---|---|
+| 2026-11-10 | Preliminary full-B correction-value screen | OLMo 2 1B, 920 screened responses | `analysis/olmo_jsd/audit_injection_mentions.py` | [screen](results/olmo2_fixed_a_jsd_20261109/analysis/injection_value_screen) | [update](docs/updates/2026-11-10.md) |
+| 2026-11-09 | JSD rescore, 960 matched saved responses | OLMo 2 1B, steps 0/200/1400/2600 | archived scorer + `analysis/olmo_jsd/` | [results](results/olmo2_fixed_a_jsd_20261109/README.md) | [update](docs/updates/2026-11-10.md) |
+| 2026-11-06–07 | Fixed-A five-trial run, stopped at 993/1,000 | OLMo 2 1B | archived source | [results](results/olmo2_1b_fixed_step0_a_50q_5trials_20261106/README.md) | [update](docs/updates/2026-11-10.md) |
+| 2026-11-05 | Fresh A100, B to EOS/cap, 400 responses | OLMo 2 1B | archived source | [results](results/olmo2_1b_a100_full_b_50q_20261105/README.md) | [update](docs/updates/2026-11-10.md) |
+| 2026-11-03 | Corrected whole-A removal, B75–125 | Qwen3-0.6B, steps 0/77/251 | `daytona_for_ben/` | [results](results/qwen06b_original50_free_a125_whole_a_b75_125/README.md) | [update](docs/updates/2026-11-10.md) |
 | 2026-11-02 | Daytona CPU speed check, late-A protocol (1 question) | Qwen3-0.6B, steps 0/77/251 | `daytona_pilot/` | [results/daytona_cpu_speed_check_late_a](results/daytona_cpu_speed_check_late_a/README.md) | [update](docs/updates/2026-11-02.md) |
 | 2026-11-02 | Fresh A, normal correction, B windows up to 150 tokens | Qwen3-0.6B | `sampled_a_normal150_experiment.py` | [results/qwen06b_sampled_a_normal_150](results/qwen06b_sampled_a_normal_150) | [update](docs/updates/2026-11-02.md) |
 | 2026-11-02 | Fresh A, arithmetic-only B50 | Qwen3-0.6B | `sampled_a_arithmetic_experiment.py` | [results/qwen06b_sampled_a_arithmetic_50](results/qwen06b_sampled_a_arithmetic_50) | [update](docs/updates/2026-11-02.md) |
@@ -152,9 +189,17 @@ historical runner hash for this run does not match the published source; see
 ### Limitations common to all studies
 
 Checkpoints come from single training lineages, so variation across
-independently trained models is not measured. Questions were screened for long
-responses, scores are conditional on span completion, and early endings are
-missing values, not zeros.
+independently trained models is not measured. Question selection includes length screening in the original 50-question cohort.
+Earlier Qwen complete-window analyses exclude short responses; the newer OLMo
+available-token analyses retain them. Both policies have limits: exclusion changes
+coverage, while available-token means can average different response lengths.
+Missing scores are never converted to zeros.
+
+## Daytona setup
+
+[Daytona Code For Ben](daytona_for_ben/README.md) documents the corrected whole-A
+Qwen runner. Historical run snapshots are preserved separately; do not resume a
+published run with edited code.
 
 ## Quick start
 

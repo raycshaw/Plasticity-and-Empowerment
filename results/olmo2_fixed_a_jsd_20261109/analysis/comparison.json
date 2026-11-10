@@ -1,0 +1,239 @@
+{
+  "matched_questions": 48,
+  "trials_per_question": 5,
+  "responses_per_checkpoint": 240,
+  "checkpoints": [
+    0,
+    200,
+    1400,
+    2600
+  ],
+  "total_responses": 960,
+  "uncertainty": "10,000 paired question-cluster bootstrap samples; pointwise 95% intervals; exploratory, unadjusted",
+  "aggregation": "Mean tokens within response, then five trials within question, then equally weighted questions",
+  "scoring": "First 100 available non-EOS B tokens, identical saved B history in full and ablated contexts",
+  "interpretation": "JSD measures distribution sensitivity, not direction, correctness, formal directed information, or established empowerment.",
+  "selection": "48 questions fully completed at every checkpoint; excludes two incomplete questions from the stopped run",
+  "source_run": "../olmo2_1b_fixed_step0_a_50q_5trials_20261106",
+  "max_entropy_reproduction_error_bits": 3.814697265625e-05,
+  "min_scored_B_tokens": 31,
+  "max_scored_B_tokens": 100,
+  "summary": [
+    {
+      "metric": "original_plasticity_bits_per_token",
+      "step": 0,
+      "mean": 0.12613511144679104,
+      "ci95_low": 0.11499908115096456,
+      "ci95_high": 0.1364523801451917,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "original_plasticity_bits_per_token",
+      "step": 200,
+      "mean": 0.12415842712645203,
+      "ci95_low": 0.11206964658990742,
+      "ci95_high": 0.1362810206287208,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "original_plasticity_bits_per_token",
+      "step": 1400,
+      "mean": 0.1321445209092727,
+      "ci95_low": 0.12123770390466222,
+      "ci95_high": 0.1424951098013165,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "original_plasticity_bits_per_token",
+      "step": 2600,
+      "mean": 0.13103606759366904,
+      "ci95_low": 0.11872260143688888,
+      "ci95_high": 0.14265315332577272,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "original_empowerment_bits_per_token",
+      "step": 0,
+      "mean": 0.09975966069464011,
+      "ci95_low": 0.08468791594496253,
+      "ci95_high": 0.1141757845668752,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "original_empowerment_bits_per_token",
+      "step": 200,
+      "mean": 0.10340834789412451,
+      "ci95_low": 0.08895385290704061,
+      "ci95_high": 0.11746243786964079,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "original_empowerment_bits_per_token",
+      "step": 1400,
+      "mean": 0.10126523289497409,
+      "ci95_low": 0.08494598854192363,
+      "ci95_high": 0.11792027813248576,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "original_empowerment_bits_per_token",
+      "step": 2600,
+      "mean": 0.0912187185972048,
+      "ci95_low": 0.07430062412849596,
+      "ci95_high": 0.10921193819292187,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "correction_jsd_mean_bits",
+      "step": 0,
+      "mean": 0.06895977610256523,
+      "ci95_low": 0.06590939020815617,
+      "ci95_high": 0.07190454400202727,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "correction_jsd_mean_bits",
+      "step": 200,
+      "mean": 0.06885759187862277,
+      "ci95_low": 0.06568975722766482,
+      "ci95_high": 0.0721311243181117,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "correction_jsd_mean_bits",
+      "step": 1400,
+      "mean": 0.06610085129116973,
+      "ci95_low": 0.06329432271944825,
+      "ci95_high": 0.06879368495273717,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "correction_jsd_mean_bits",
+      "step": 2600,
+      "mean": 0.06638242837507279,
+      "ci95_low": 0.06386288673616945,
+      "ci95_high": 0.06887426874037673,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "a_jsd_mean_bits",
+      "step": 0,
+      "mean": 0.05342974232432121,
+      "ci95_low": 0.049452064201565615,
+      "ci95_high": 0.05750358579428089,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "a_jsd_mean_bits",
+      "step": 200,
+      "mean": 0.05681654562164718,
+      "ci95_low": 0.05207389121390102,
+      "ci95_high": 0.06175275261222852,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "a_jsd_mean_bits",
+      "step": 1400,
+      "mean": 0.05535807922327272,
+      "ci95_low": 0.0509486941145345,
+      "ci95_high": 0.06008954448373214,
+      "questions": 48,
+      "responses": 240
+    },
+    {
+      "metric": "a_jsd_mean_bits",
+      "step": 2600,
+      "mean": 0.055291599997629726,
+      "ci95_low": 0.0506367384121404,
+      "ci95_high": 0.060095028401313644,
+      "questions": 48,
+      "responses": 240
+    }
+  ],
+  "endpoint_changes": [
+    {
+      "metric": "original_plasticity_bits_per_token",
+      "comparison": "step 2600 minus step 0",
+      "difference": 0.004900956146877994,
+      "ci95_low": -0.006322875957658123,
+      "ci95_high": 0.016100104203267844
+    },
+    {
+      "metric": "original_empowerment_bits_per_token",
+      "comparison": "step 2600 minus step 0",
+      "difference": -0.008540942097435306,
+      "ci95_low": -0.021698335068124266,
+      "ci95_high": 0.005550490819563434
+    },
+    {
+      "metric": "correction_jsd_mean_bits",
+      "comparison": "step 2600 minus step 0",
+      "difference": -0.002577347727492449,
+      "ci95_low": -0.00532815571466926,
+      "ci95_high": 0.0002301657192098843
+    },
+    {
+      "metric": "a_jsd_mean_bits",
+      "comparison": "step 2600 minus step 0",
+      "difference": 0.0018618576733085146,
+      "ci95_low": -0.0017411259240664944,
+      "ci95_high": 0.0054150636623186464
+    }
+  ],
+  "within_checkpoint_correlations": [
+    {
+      "step": 0,
+      "comparison": "Correction \u2192 B",
+      "question_mean_spearman": 0.6404689535388624
+    },
+    {
+      "step": 0,
+      "comparison": "A \u2192 B",
+      "question_mean_spearman": 0.581306990881459
+    },
+    {
+      "step": 200,
+      "comparison": "Correction \u2192 B",
+      "question_mean_spearman": 0.6895353886235345
+    },
+    {
+      "step": 200,
+      "comparison": "A \u2192 B",
+      "question_mean_spearman": 0.5073816760746851
+    },
+    {
+      "step": 1400,
+      "comparison": "Correction \u2192 B",
+      "question_mean_spearman": 0.6622883195831524
+    },
+    {
+      "step": 1400,
+      "comparison": "A \u2192 B",
+      "question_mean_spearman": 0.5815240990013028
+    },
+    {
+      "step": 2600,
+      "comparison": "Correction \u2192 B",
+      "question_mean_spearman": 0.43736430742509774
+    },
+    {
+      "step": 2600,
+      "comparison": "A \u2192 B",
+      "question_mean_spearman": 0.6285280069474598
+    }
+  ]
+}

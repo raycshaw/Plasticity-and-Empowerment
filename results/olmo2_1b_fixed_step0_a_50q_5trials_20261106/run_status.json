@@ -1,0 +1,13 @@
+{
+  "planned": 1000,
+  "saved": 993,
+  "by_checkpoint": {
+    "0": 250,
+    "200": 250,
+    "1400": 250,
+    "2600": 243
+  },
+  "status": "stopped_by_user_after_preliminary_results",
+  "matched_analysis_responses": 960,
+  "matched_analysis_questions": 48
+}

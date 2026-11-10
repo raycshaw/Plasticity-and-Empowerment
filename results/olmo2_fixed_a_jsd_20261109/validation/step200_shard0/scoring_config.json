@@ -1,0 +1,17 @@
+{
+  "protocol": "saved_B_jsd_teacher_forcing_v1",
+  "input_sha256": "19eff94814a014d19974f3da115c4e937b831b7696e4232e956e763eac6d9afa",
+  "scorer_sha256": "cb3d21186c5d0d1bf1a312bfe274caf62d29ff3b1318cfba99ae9c472e34c834",
+  "expected": 240,
+  "repo": "allenai/OLMo-2-0425-1B-RLVR1",
+  "revision": "b85a22f7df1c1f4616fa569521236642c78863d8",
+  "threads": 4,
+  "weights_dtype": "float32",
+  "units": "bits",
+  "context_comparisons": [
+    "full versus empty correction",
+    "full versus empty A"
+  ],
+  "B_window": "first 100 available non-EOS tokens; identical saved B history",
+  "new_generation": false
+}

@@ -95,3 +95,30 @@ or independent training runs. These intervals and tests describe variation in
 this selected question set under the analysis assumptions. They do not account
 for dataset selection, all Monte Carlo uncertainty, or variation across training
 seeds. The study did not measure final-answer accuracy or correction adoption.
+
+
+## JSD complement (November 2026)
+
+For each saved B position t, P is the full-context next-token distribution and
+Q is the distribution after emptying the correction content or all A content.
+Question, other source content, message framing, and exact B history are held
+fixed within that comparison. The baseline empties context; it does not
+marginalize over a probability law for possible source blocks.
+
+The original score is H(Q) − H(P). The complementary score is
+JSD(P,Q) = [KL(P || M) + KL(Q || M)] / 2, where M = (P + Q) / 2.
+Both use base-2 logarithms. JSD lies between 0 and 1 bit per token and detects
+probability redistribution even when H(P) = H(Q). It is not a percentage of
+plasticity, an answer-change probability, or formal directed information.
+
+The matched OLMo analysis averages over the first 100 available non-EOS B tokens,
+then over five trials per question, then equally across 48 complete questions.
+Paired question-cluster bootstraps preserve checkpoint pairing. Response paths
+can differ across checkpoints, even though A token IDs are fixed. The run stopped
+after preliminary results, so inference is exploratory.
+
+JSD for correction removal is a correction-sensitivity proxy. JSD for A removal
+measures earlier-output dependence, not established environment-control
+empowerment. Validate against correction adoption and final answers. The
+preliminary value-mention screen is separate from corrected-answer grading.
+See [the latest protocol and evidence](updates/2026-11-10.md).

@@ -1,0 +1,67 @@
+{
+  "scope": "Matched fixed-A OLMo JSD cohort; full saved B, not just scored first 100 tokens",
+  "screened": 920,
+  "excluded_source_issue_responses": 40,
+  "excluded_question_ids": [
+    "test:1309",
+    "test:255"
+  ],
+  "checkpoint_counts": {
+    "0": {
+      "responses": 230,
+      "mentions": {
+        "revised_only": 168,
+        "both": 60,
+        "old_only": 1,
+        "neither": 1
+      },
+      "reviewed": {
+        "not_semantically_reviewed": 228,
+        "confirmed_old_value_used": 1,
+        "wrong_third_value_used": 1
+      }
+    },
+    "200": {
+      "responses": 230,
+      "mentions": {
+        "revised_only": 167,
+        "both": 58,
+        "old_only": 5
+      },
+      "reviewed": {
+        "not_semantically_reviewed": 225,
+        "confirmed_old_value_used": 4,
+        "wrong_third_value_used": 1
+      }
+    },
+    "1400": {
+      "responses": 230,
+      "mentions": {
+        "revised_only": 172,
+        "both": 57,
+        "old_only": 1
+      },
+      "reviewed": {
+        "not_semantically_reviewed": 229,
+        "confirmed_old_value_used": 1
+      }
+    },
+    "2600": {
+      "responses": 230,
+      "mentions": {
+        "both": 63,
+        "revised_only": 165,
+        "neither": 1,
+        "old_only": 1
+      },
+      "reviewed": {
+        "not_semantically_reviewed": 228,
+        "wrong_third_value_used": 1,
+        "confirmed_old_value_used": 1
+      }
+    }
+  },
+  "confirmed_old_value_cases": 7,
+  "interpretation": "Confirmed counts are lower bounds, not exhaustive ignoring rates. Both-value and revised-only responses were not comprehensively semantically reviewed. Mentioning the revised value does not establish successful correction adoption.",
+  "matching": "Exact numeric values with comma/decimal normalization and listed single number words; no complete compound-number language parser"
+}

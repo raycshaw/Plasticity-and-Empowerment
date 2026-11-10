@@ -1,5 +1,15 @@
 # Findings and evidence
 
+## Latest evidence — November 10, 2026
+
+The [latest update](updates/2026-11-10.md) adds Ben’s corrected whole-A Qwen run,
+400 fresh-A OLMo responses, the stopped fixed-A run, a 960-response JSD rescore,
+and a preliminary behavioral screen. Entropy and JSD have different endpoint
+directions in the matched OLMo sample; all four endpoint-change intervals include
+zero. Seven confirmed old-value uses are a lower bound from targeted review, not
+a comprehensive injection-failure rate. Earlier results below retain their
+original protocols and should not be pooled as interchangeable replications.
+
 ## Qwen3-0.6B: completed October 31, 2026
 
 The new 12,000-rollout experiment is published with its [full explanation,

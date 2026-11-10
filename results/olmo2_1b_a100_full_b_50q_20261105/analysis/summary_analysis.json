@@ -1,0 +1,118 @@
+{
+  "metrics": {
+    "plasticity_bits_per_token": {
+      "0": {
+        "mean": 0.12903813637602274,
+        "ci95": [
+          0.11617274645067141,
+          0.14245842538822778
+        ],
+        "questions": 50
+      },
+      "200": {
+        "mean": 0.12106814981771638,
+        "ci95": [
+          0.10725222563425198,
+          0.13495574424235984
+        ],
+        "questions": 50
+      },
+      "1400": {
+        "mean": 0.13920345501805567,
+        "ci95": [
+          0.1254218875722841,
+          0.15280333508130445
+        ],
+        "questions": 50
+      },
+      "2600": {
+        "mean": 0.13248621121101029,
+        "ci95": [
+          0.11960636081542739,
+          0.1452133310698879
+        ],
+        "questions": 50
+      }
+    },
+    "empowerment_bits_per_token": {
+      "0": {
+        "mean": 0.11362253645988217,
+        "ci95": [
+          0.09154179166262216,
+          0.1348279929575572
+        ],
+        "questions": 50
+      },
+      "200": {
+        "mean": 0.10656175552654357,
+        "ci95": [
+          0.08823318267510429,
+          0.12530326607899972
+        ],
+        "questions": 50
+      },
+      "1400": {
+        "mean": 0.10159883186927832,
+        "ci95": [
+          0.08415010038933682,
+          0.1192448608342736
+        ],
+        "questions": 50
+      },
+      "2600": {
+        "mean": 0.08889676806305846,
+        "ci95": [
+          0.07132746214583043,
+          0.10601997276072918
+        ],
+        "questions": 50
+      }
+    }
+  },
+  "numerical_grading": {
+    "0": {
+      "numeric_match": 48,
+      "numeric_mismatch": 46,
+      "needs_review": 2,
+      "excluded_answer_key": 4,
+      "percent_of_graded": 51.06382978723404,
+      "question_bootstrap_ci95_percent": [
+        39.361702127659576,
+        62.76595744680851
+      ]
+    },
+    "200": {
+      "numeric_match": 53,
+      "numeric_mismatch": 41,
+      "needs_review": 2,
+      "excluded_answer_key": 4,
+      "percent_of_graded": 56.38297872340426,
+      "question_bootstrap_ci95_percent": [
+        44.680851063829785,
+        68.08510638297872
+      ]
+    },
+    "1400": {
+      "numeric_match": 51,
+      "numeric_mismatch": 43,
+      "needs_review": 2,
+      "excluded_answer_key": 4,
+      "percent_of_graded": 54.255319148936174,
+      "question_bootstrap_ci95_percent": [
+        43.61702127659575,
+        65.95744680851064
+      ]
+    },
+    "2600": {
+      "numeric_match": 50,
+      "numeric_mismatch": 41,
+      "needs_review": 5,
+      "excluded_answer_key": 4,
+      "percent_of_graded": 54.94505494505494,
+      "question_bootstrap_ci95_percent": [
+        43.47826086956522,
+        66.29213483146067
+      ]
+    }
+  }
+}

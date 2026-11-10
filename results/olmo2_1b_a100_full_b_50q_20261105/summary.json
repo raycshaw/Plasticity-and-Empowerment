@@ -1,0 +1,30 @@
+{
+  "0": {
+    "attempted": 100,
+    "eligible": 100,
+    "represented_questions": 50,
+    "plasticity_bits_per_token": 0.1290381363760227,
+    "empowerment_bits_per_token": 0.11362253645988214
+  },
+  "200": {
+    "attempted": 100,
+    "eligible": 100,
+    "represented_questions": 50,
+    "plasticity_bits_per_token": 0.12106814981771638,
+    "empowerment_bits_per_token": 0.10656175552654357
+  },
+  "1400": {
+    "attempted": 100,
+    "eligible": 100,
+    "represented_questions": 50,
+    "plasticity_bits_per_token": 0.13920345501805564,
+    "empowerment_bits_per_token": 0.10159883186927832
+  },
+  "2600": {
+    "attempted": 100,
+    "eligible": 100,
+    "represented_questions": 50,
+    "plasticity_bits_per_token": 0.13248621121101026,
+    "empowerment_bits_per_token": 0.08889676806305846
+  }
+}
